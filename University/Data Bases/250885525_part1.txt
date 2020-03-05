@@ -1,0 +1,38 @@
+#	Riley Lankshear
+# 	Assignment 2
+#	250885525
+
+
+SHOW DATABASES;
+
+#Granting TA access
+DROP DATABASE IF EXISTS rlanksheassign2db;
+CREATE DATABASE rlanksheassign2db;
+USE rlanksheassign2db;
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON rlanksheassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+
+SHOW TABLES;
+
+#creating tables
+CREATE TABLE patient(OHIPNumber BIGINT(9) NOT NULL, firstName VARCHAR(20), lastName VARCHAR(20), PRIMARY KEY (OHIPNumber));
+
+CREATE TABLE doctor(firstName VARCHAR(20), lastName VARCHAR(20), licenceNum VARCHAR(4) NOT NULL, date DATE, specialty VARCHAR(30), PRIMARY KEY (licenceNUM));
+
+CREATE TABLE hospital(hospitalCode VARCHAR(3) NOT NULL, city VARCHAR(20), name VARCHAR(20), province VARCHAR(2), numOfBeds INT, docNum CHAR(4), dateStarted DATE,
+
+#ALtering tables
+FOREIGN KEY (docNum) REFERENCES doctor(licenceNum) ON DELETE RESTRICT, PRIMARY KEY (hospitalCode));
+
+ALTER TABLE doctor ADD hospCode VARCHAR(3);
+
+ALTER TABLE doctor ADD FOREIGN KEY (hospCode) REFERENCES hospital(hospitalCode);
+
+#creating M:M table
+CREATE TABLE treats(OHIPNum BIGINT(9), FOREIGN KEY (OHIPNum) REFERENCES patient(OHIPNumber), licNum VARCHAR(4), FOREIGN KEY(licNum) REFERENCES doctor(licenceNum) ON DELETE CASCADE, PRIMARY KEY (OHIPNum, licNum));
+
+SHOW TABLES;

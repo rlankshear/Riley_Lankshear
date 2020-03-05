@@ -1,0 +1,123 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| rlanksheassign2db  |
+| vetoffice          |
++--------------------+
+5 rows in set (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS rlanksheassign2db
+--------------
+
+Query OK, 4 rows affected (0.09 sec)
+
+--------------
+CREATE DATABASE rlanksheassign2db
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON rlanksheassign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE patient(OHIPNumber BIGINT(9) NOT NULL, firstName VARCHAR(20), lastName VARCHAR(20), PRIMARY KEY (OHIPNumber))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+CREATE TABLE doctor(firstName VARCHAR(20), lastName VARCHAR(20), licenceNum VARCHAR(4) NOT NULL, date DATE, specialty VARCHAR(30), PRIMARY KEY (licenceNUM))
+--------------
+
+Query OK, 0 rows affected (0.30 sec)
+
+--------------
+CREATE TABLE hospital(hospitalCode VARCHAR(3) NOT NULL, city VARCHAR(20), name VARCHAR(20), province VARCHAR(2), numOfBeds INT, docNum CHAR(4), dateStarted DATE,
+
+FOREIGN KEY (docNum) REFERENCES doctor(licenceNum) ON DELETE RESTRICT, PRIMARY KEY (hospitalCode))
+--------------
+
+Query OK, 0 rows affected (0.08 sec)
+
+--------------
+ALTER TABLE doctor ADD hospCode VARCHAR(3)
+--------------
+
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ALTER TABLE doctor ADD FOREIGN KEY (hospCode) REFERENCES hospital(hospitalCode)
+--------------
+
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+CREATE TABLE treats(OHIPNum BIGINT(9), FOREIGN KEY (OHIPNum) REFERENCES patient(OHIPNumber), licNum VARCHAR(4), FOREIGN KEY(licNum) REFERENCES doctor(licenceNum) ON DELETE CASCADE, PRIMARY KEY (OHIPNum, licNum))
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+
+--------------
+SHOW TABLES
+--------------
+
++-----------------------------+
+| Tables_in_rlanksheassign2db |
++-----------------------------+
+| doctor                      |
+| hospital                    |
+| patient                     |
+| treats                      |
++-----------------------------+
+4 rows in set (0.00 sec)
+
+Bye
+

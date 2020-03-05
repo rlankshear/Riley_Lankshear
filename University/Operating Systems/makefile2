@@ -1,0 +1,19 @@
+# Riley Lankshear
+# 250885525
+# CS3305
+# Assignment 2
+
+
+CC = gcc
+RMFLAGS = -f
+
+all: 250885525_Assignment2_Part1 250885525_Assignment2_Part2
+	
+250885525_Assignment2_Part1: 250885525_Assignment2_Part1.c
+	$(CC) -lpthread -o part1.o 250885525_Assignment2_Part1.c
+
+250885525_Assignment2_Part2: 250885525_Assignment2_Part2.c
+	$(CC) -o part2.o 250885525_Assignment2_Part2.c
+	
+clean:
+	rm $(RMFLAGS) *.out *.o cpu_scheudling_output_file.txt

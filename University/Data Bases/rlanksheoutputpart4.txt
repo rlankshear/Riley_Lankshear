@@ -1,0 +1,346 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT * FROM patient
+--------------
+
++------------+-----------+-----------+
+| OHIPNumber | firstName | lastName  |
++------------+-----------+-----------+
+|  110112113 | Bill	 | Gellar    |
+|  111222111 | Suzi	 | Brown     |
+|  111222333 | Jon	 | Green     |
+|  123456789 | Riley     | Lankshear |
+|  333444555 | Colleen   | Gellar    |
+|  444555666 | Sean	 | Gellar    |
+|  667766777 | Scotty    | Bing      |
++------------+-----------+-----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date	   | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Ross      | Clooney    | HT45       | 1987-06-20 | Surgeon	  | DDE      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz	 | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
++--------------+----------+------------+----------+-----------+--------+-------------+
+| hospitalCode | city     | name       | province | numOfBeds | docNum | dateStarted |
++--------------+----------+------------+----------+-----------+--------+-------------+
+| ABC          | London   | Victoria   | ON	  |	 1600 | SE66   | 1994-12-05  |
+| BBC          | London   | St. Joseph | ON	  |	 1000 | GD56   | 1999-09-10  |
+| DDE          | Victoria | Victoria   | BC	  |	 1200 | YT67   | 1997-12-07  |
++--------------+----------+------------+----------+-----------+--------+-------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222111 | HT45   |
+| 111222333 | HT45   |
+| 444555666 | HT45   |
+| 667766777 | HT45   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 14: Cannot delete or update a parent row: a foreign key constraint fails (`rlanksheassign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`docNum`) REFERENCES `doctor` (`licenceNum`))
+--------------
+DELETE FROM doctor WHERE date < '1965-01-01'
+--------------
+
+
+--------------
+SELECT * FROM patient
+--------------
+
++------------+-----------+-----------+
+| OHIPNumber | firstName | lastName  |
++------------+-----------+-----------+
+|  110112113 | Bill      | Gellar    |
+|  111222111 | Suzi      | Brown     |
+|  111222333 | Jon       | Green     |
+|  123456789 | Riley     | Lankshear |
+|  333444555 | Colleen   | Gellar    |
+|  444555666 | Sean      | Gellar    |
+|  667766777 | Scotty    | Bing      |
++------------+-----------+-----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date       | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Ross      | Clooney    | HT45       | 1987-06-20 | Surgeon	  | DDE      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz       | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
++--------------+----------+------------+----------+-----------+--------+-------------+
+| hospitalCode | city     | name       | province | numOfBeds | docNum | dateStarted |
++--------------+----------+------------+----------+-----------+--------+-------------+
+| ABC          | London   | Victoria   | ON	  |	 1600 | SE66   | 1994-12-05  |
+| BBC          | London   | St. Joseph | ON	  |	 1000 | GD56   | 1999-09-10  |
+| DDE          | Victoria | Victoria   | BC	  |	 1200 | YT67   | 1997-12-07  |
++--------------+----------+------------+----------+-----------+--------+-------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222111 | HT45   |
+| 111222333 | HT45   |
+| 444555666 | HT45   |
+| 667766777 | HT45   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 21: Cannot delete or update a parent row: a foreign key constraint fails (`rlanksheassign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`docNum`) REFERENCES `doctor` (`licenceNum`))
+--------------
+DELETE FROM doctor WHERE date < '1965-01-01'
+--------------
+
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date	   | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Ross      | Clooney    | HT45       | 1987-06-20 | Surgeon	  | DDE      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz	 | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
++--------------+----------+------------+----------+-----------+--------+-------------+
+| hospitalCode | city     | name       | province | numOfBeds | docNum | dateStarted |
++--------------+----------+------------+----------+-----------+--------+-------------+
+| ABC          | London   | Victoria   | ON	  |	 1600 | SE66   | 1994-12-05  |
+| BBC          | London   | St. Joseph | ON	  |	 1000 | GD56   | 1999-09-10  |
+| DDE          | Victoria | Victoria   | BC	  |	 1200 | YT67   | 1997-12-07  |
++--------------+----------+------------+----------+-----------+--------+-------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222111 | HT45   |
+| 111222333 | HT45   |
+| 444555666 | HT45   |
+| 667766777 | HT45   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+12 rows in set (0.00 sec)
+ERROR 1050 (42S01) at line 28: Table 'treatedByHeads' already exists
+--------------
+CREATE VIEW treatedByHeads AS
+        SELECT patient.firstName AS "Patient First Name", patient.lastName AS "Patient Last Name",
+                doctor.lastName AS "Doctors Last Name", hospital.name AS "Hospital Name"
+        FROM patient, doctor, hospital, treats
+        WHERE patient.OHIPNumber = treats.OHIPNum
+                AND doctor.licenceNum = treats.licNum
+                AND doctor.licenceNum = hospital.docNum
+                AND dateStarted > '1995-12-31'
+
+--------------
+SELECT * FROM treatedByHeads
+--------------
+
++--------------------+-------------------+-------------------+---------------+
+| Patient First Name | Patient Last Name | Doctors Last Name | Hospital Name |
++--------------------+-------------------+-------------------+---------------+
+| Bill               | Gellar            | Shabado           | St. Joseph    |
+| Colleen            | Gellar            | Shabado           | St. Joseph    |
+| Scotty             | Bing              | Shabado           | St. Joseph    |
++--------------------+-------------------+-------------------+---------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date       | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Ross      | Clooney    | HT45       | 1987-06-20 | Surgeon	  | DDE      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz       | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222111 | HT45   |
+| 111222333 | HT45   |
+| 444555666 | HT45   |
+| 667766777 | HT45   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+--------------
+DELETE FROM doctor WHERE lastname = "Clooney"
+--------------
+
+Query OK, 1 row affected (0.17 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date	   | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz	 | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+8 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 53: Cannot delete or update a parent row: a foreign key constraint fails (`rlanksheassign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`docNum`) REFERENCES `doctor` (`licenceNum`))
+--------------
+DELETE FROM doctor WHERE specialty = "Surgeon"
+--------------
+
+--------------
+SELECT * FROM doctor
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date	   | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Colleen   | Aziz	 | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
++-----------+------------+------------+------------+--------------+----------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+--------+
+| OHIPNum   | licNum |
++-----------+--------+
+| 110112113 | GD56   |
+| 333444555 | GD56   |
+| 667766777 | GD56   |
+| 111222333 | JK78   |
+| 444555666 | JK78   |
+| 667766777 | JK78   |
+| 111222333 | SE66   |
+| 123456789 | ZW69   |
++-----------+--------+
+8 rows in set (0.00 sec)
+
+Bye
