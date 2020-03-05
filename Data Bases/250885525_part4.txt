@@ -1,0 +1,60 @@
+#	Riley Lankshear
+#	Assignment 2
+#	250885525
+
+
+USE rlanksheassign2db;
+
+SELECT * FROM patient;
+SELECT * FROM doctor;
+SELECT * FROM hospital;
+SELECT * FROM treats;
+
+#can not delete rows because Shabado and Spock both have licence dates pre 1965 are heads of a hospital and we can not delete heads of a hospital
+DELETE FROM doctor WHERE date < '1965-01-01';
+SELECT * FROM patient;
+SELECT * FROM doctor;
+SELECT * FROM hospital;
+SELECT * FROM treats;
+
+#can not delete rows because Shabado and Spock both have licence dates pre 1965 are heads of a hospital and we can not delete heads of a hospital
+DELETE FROM doctor WHERE date < '1965-01-01';
+SELECT * FROM doctor;
+SELECT * FROM hospital;
+SELECT * FROM treats;
+
+
+#create view
+CREATE VIEW treatedByHeads AS
+        SELECT patient.firstName AS "Patient First Name", patient.lastName AS "Patient Last Name",
+                doctor.lastName AS "Doctors Last Name", hospital.name AS "Hospital Name"
+        FROM patient, doctor, hospital, treats
+        WHERE patient.OHIPNumber = treats.OHIPNum
+                AND doctor.licenceNum = treats.licNum
+                AND doctor.licenceNum = hospital.docNum
+                AND dateStarted > '1995-12-31';
+
+
+#Showing the view
+SELECT * FROM treatedByHeads;
+
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+
+
+DELETE FROM doctor WHERE lastname = "Clooney";
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+# Because cascade was implemented earlier on when creating the table all the rows that refreences Clooney's licece were deleted
+
+
+DELETE FROM doctor WHERE specialty = "Surgeon";
+#Because Aziz is a surgeon AND head of a hospital this will delete command
+# will through an error and can not delete the rows
+# head doctors can not be deleted
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+# Because cascade was implemented earlier on when creating the table all the rows that refreences Clooney's licece were deleted

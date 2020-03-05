@@ -1,0 +1,179 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT lastName FROM patient
+--------------
+
++-----------+
+| lastName  |
++-----------+
+| Gellar    |
+| Brown     |
+| Green     |
+| Lankshear |
+| Gellar    |
+| Gellar    |
+| Bing      |
++-----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT DISTINCT lastName FROM patient
+--------------
+
++-----------+
+| lastName  |
++-----------+
+| Gellar    |
+| Brown     |
+| Green     |
+| Lankshear |
+| Bing      |
++-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor ORDER BY lastName
+--------------
+
++-----------+------------+------------+------------+--------------+----------+
+| firstName | lastName   | licenceNum | date	   | specialty    | hospCode |
++-----------+------------+------------+------------+--------------+----------+
+| Colleen   | Aziz	 | SE66       | 1989-08-24 | Surgeon	  | ABC      |
+| Ross      | Clooney    | HT45       | 1987-06-20 | Surgeon	  | DDE      |
+| Bernie    | Kavorikian | RD34       | 1980-09-09 | Urologist    | BBC      |
+| Bruce     | Lankshear  | ZW69       | 1991-10-10 | Urologist    | ABC      |
+| Joey      | Shabado    | GD56       | 1960-06-24 | Podiatrist   | BBC      |
+| Ben       | Spock	 | YT67       | 1955-02-20 | Pediatrician | DDE      |
+| Mandy     | Webster    | JK78       | 1990-08-08 | Surgeon	  | BBC      |
++-----------+------------+------------+------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT name, hospitalCode FROM hospital WHERE numOfBeds > 1500
+--------------
+
++----------+--------------+
+| name     | hospitalCode |
++----------+--------------+
+| Victoria | ABC          |
++----------+--------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT lastName, firstName FROM doctor WHERE hospCode = (SELECT hospitalCode FROM hospital WHERE name = "St. Joseph")
+--------------
+
++------------+-----------+
+| lastName   | firstName |
++------------+-----------+
+| Shabado    | Joey	 |
+| Webster    | Mandy     |
+| Kavorikian | Bernie    |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT firstName, lastName FROM patient WHERE lastName LIKE "G%"
+--------------
+
++-----------+----------+
+| firstName | lastName |
++-----------+----------+
+| Bill      | Gellar   |
+| Jon       | Green    |
+| Colleen   | Gellar   |
+| Sean      | Gellar   |
++-----------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT firstName, lastName FROM patient WHERE OHIPNumber In (SELECT DISTINCT OHIPNum FROM treats WHERE licNum = (SELECT licenceNum FROM doctor WHERE lastName = "Clooney"))
+--------------
+
++-----------+----------+
+| firstName | lastName |
++-----------+----------+
+| Suzi      | Brown    |
+| Jon       | Green    |
+| Sean      | Gellar   |
+| Scotty    | Bing     |
++-----------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT name, city, lastName FROM hospital, doctor WHERE docNum = licenceNum
+--------------
++------------+----------+----------+
+| name       | city     | lastName |
++------------+----------+----------+
+| Victoria   | London   | Aziz     |
+| St. Joseph | London   | Shabado  |
+| Victoria   | Victoria | Spock    |
++------------+----------+----------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT SUM(numOfBeds) AS "Total number of beds" FROM hospital
+--------------
+
++----------------------+
+| Total number of beds |
++----------------------+
+|                 3800 |
++----------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT patient.firstName AS "Patient First Name", doctor.firstName AS "Doctors First Name"
+        FROM patient, doctor, treats, hospital
+        WHERE doctor.licenceNum = treats.licNum AND patient.OHIPNumber = treats.OHIPNum AND treats.licNum = hospital.docNum
+--------------
++--------------------+--------------------+
+| Patient First Name | Doctors First Name |
++--------------------+--------------------+
+| Bill               | Joey         	  |
+| Colleen            | Joey         	  |
+| Scotty             | Joey         	  |
+| Jon                | Colleen      	  |
++--------------------+--------------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT firstName, lastName FROM doctor WHERE specialty = "Surgeon" AND hospCode IN (SELECT hospitalCode FROM hospital WHERE name = "Victoria")
+--------------
+
++-----------+----------+
+| firstName | lastName |
++-----------+----------+
+| Ross      | Clooney  |
+| Colleen   | Aziz     |
++-----------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT firstName FROM doctor WHERE licenceNum NOT IN (SELECT licNum from treats)
+--------------
+
++-----------+
+| firstName |
++-----------+
+| Bernie    |
+| Ben       |
++-----------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT lastName, firstName FROM doctor WHERE licenceNum IN (SELECT licNum FROM treats GROUP BY licNum HAVING count(OHIPNum)>1)
+--------------
+
++----------+-----------+
+| lastName | firstName |
++----------+-----------+
+| Shabado  | Joey      |
+| Clooney  | Ross      |
+| Webster  | Mandy     |
++----------+-----------+
+3 rows in set (0.00 sec)
+
+Bye
+
